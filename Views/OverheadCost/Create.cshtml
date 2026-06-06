@@ -1,0 +1,83 @@
+@model OverheadCost
+@{
+    ViewData["Title"] = "Thêm Chi Phí Chung";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-plus-circle me-2"></i>Thêm Chi Phí Chung</h1>
+        <p>Nhập thông tin khoản chi phí chung mới</p>
+    </div>
+</div>
+
+<div class="container pb-4">
+    <nav aria-label="breadcrumb" class="breadcrumb-custom">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="fas fa-home me-1"></i>Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Chi Phí Chung</a></li>
+            <li class="breadcrumb-item active">Thêm Mới</li>
+        </ol>
+    </nav>
+
+    <div class="card form-card">
+        <div class="card-header" style="background:linear-gradient(135deg,#2e7d32,#388e3c);color:white;">
+            <h5 class="mb-0"><i class="fas fa-dollar-sign me-2"></i>Thông Tin Chi Phí</h5>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-4">
+                    <label asp-for="CostName" class="form-label">
+                        <i class="fas fa-tag me-1 text-success"></i>Tên Chi Phí <span class="text-danger">*</span>
+                    </label>
+                    <input asp-for="CostName" class="form-control" placeholder="VD: Tiền điện tháng 6, Chi phí thuê văn phòng..." maxlength="150" required />
+                    <span asp-validation-for="CostName" class="invalid-feedback d-block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="TotalAmount" class="form-label">
+                        <i class="fas fa-money-bill me-1 text-success"></i>Tổng Số Tiền (₫) <span class="text-danger">*</span>
+                    </label>
+                    <div class="input-group">
+                        <input asp-for="TotalAmount" class="form-control" type="number" min="1" step="1000"
+                               placeholder="VD: 5000000" id="TotalAmount" required />
+                        <span class="input-group-text">₫</span>
+                    </div>
+                    <span asp-validation-for="TotalAmount" class="invalid-feedback d-block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="CostDate" class="form-label">
+                        <i class="fas fa-calendar me-1 text-success"></i>Ngày Phát Sinh <span class="text-danger">*</span>
+                    </label>
+                    <input asp-for="CostDate" class="form-control" type="date" required />
+                    <span asp-validation-for="CostDate" class="invalid-feedback d-block"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="AllocationMethod" class="form-label">
+                        <i class="fas fa-cogs me-1 text-success"></i>Phương Pháp Phân Bổ
+                    </label>
+                    <select asp-for="AllocationMethod" class="form-select">
+                        <option value="Equal">⚖️ Phân Bổ Đều</option>
+                        <option value="Revenue">📈 Theo Doanh Thu</option>
+                        <option value="Headcount">👥 Theo Nhân Số</option>
+                        <option value="Ratio">📊 Theo Tỷ Lệ</option>
+                    </select>
+                    <div class="form-text">Phương pháp mặc định: Phân Bổ Đều</div>
+                </div>
+
+                <hr />
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-light px-4"><i class="fas fa-times me-1"></i>Hủy</a>
+                    <button type="submit" class="btn btn-primary-custom px-4"><i class="fas fa-save me-2"></i>Lưu Chi Phí</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

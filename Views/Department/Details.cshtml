@@ -1,0 +1,48 @@
+@model Department
+@{
+    ViewData["Title"] = "Chi Tiết Phòng Ban";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-building me-2"></i>@Model.Name</h1>
+        <p>Chi tiết phòng ban</p>
+    </div>
+</div>
+
+<div class="container pb-4">
+    <nav aria-label="breadcrumb" class="breadcrumb-custom">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Phòng Ban</a></li>
+            <li class="breadcrumb-item active">@Model.Name</li>
+        </ol>
+    </nav>
+
+    <div class="card form-card">
+        <div class="card-header" style="background:linear-gradient(135deg,#2e7d32,#388e3c);color:white;">
+            <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Thông Tin Chi Tiết</h5>
+        </div>
+        <div class="card-body p-4">
+            <table class="table table-borderless">
+                <tr>
+                    <td style="width:35%;color:#607d8b;font-weight:600;">ID</td>
+                    <td><span class="badge bg-secondary">@Model.Id</span></td>
+                </tr>
+                <tr>
+                    <td style="color:#607d8b;font-weight:600;">Tên Phòng Ban</td>
+                    <td class="fw-bold" style="color:#1a237e;">@Model.Name</td>
+                </tr>
+                <tr>
+                    <td style="color:#607d8b;font-weight:600;">Mô Tả</td>
+                    <td>@(string.IsNullOrWhiteSpace(Model.Description) ? "—" : Model.Description)</td>
+                </tr>
+            </table>
+            <hr />
+            <div class="d-flex gap-2 justify-content-end">
+                <a asp-action="Index" class="btn btn-light px-4"><i class="fas fa-arrow-left me-1"></i>Quay Lại</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary-custom px-4"><i class="fas fa-edit me-1"></i>Sửa</a>
+            </div>
+        </div>
+    </div>
+</div>

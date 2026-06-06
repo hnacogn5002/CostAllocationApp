@@ -1,0 +1,50 @@
+@model OverheadCost
+@{
+    ViewData["Title"] = "Chi Tiết Chi Phí";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-dollar-sign me-2"></i>@Model.CostName</h1>
+        <p>Chi tiết khoản chi phí chung</p>
+    </div>
+</div>
+
+<div class="container pb-4">
+    <div class="card form-card">
+        <div class="card-header" style="background:linear-gradient(135deg,#2e7d32,#388e3c);color:white;">
+            <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Thông Tin Chi Tiết</h5>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-3 mb-4">
+                <div class="col-6">
+                    <div class="p-3 rounded-3" style="background:#f8f9ff;">
+                        <div class="small text-muted mb-1">Tổng Số Tiền</div>
+                        <div class="amount-display large">@Model.TotalAmount.ToString("N0") ₫</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="p-3 rounded-3" style="background:#f8f9ff;">
+                        <div class="small text-muted mb-1">Ngày Phát Sinh</div>
+                        <div class="fw-bold" style="color:#1a237e;">@Model.CostDate.ToString("dd/MM/yyyy")</div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-borderless">
+                <tr>
+                    <td style="width:40%;color:#607d8b;font-weight:600;">Tên Chi Phí</td>
+                    <td class="fw-bold">@Model.CostName</td>
+                </tr>
+                <tr>
+                    <td style="color:#607d8b;font-weight:600;">Phương Pháp Phân Bổ</td>
+                    <td>@Model.AllocationMethod</td>
+                </tr>
+            </table>
+            <hr />
+            <div class="d-flex gap-2 justify-content-end">
+                <a asp-action="Index" class="btn btn-light px-4"><i class="fas fa-arrow-left me-1"></i>Quay Lại</a>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary-custom px-4"><i class="fas fa-edit me-1"></i>Sửa</a>
+            </div>
+        </div>
+    </div>
+</div>

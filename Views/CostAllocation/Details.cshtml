@@ -1,0 +1,57 @@
+@model CostAllocation
+@{
+    ViewData["Title"] = "Chi Tiết Phân Bổ";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-chart-pie me-2"></i>Chi Tiết Phân Bổ #@Model.Id</h1>
+        <p>Thông tin chi tiết khoản phân bổ chi phí</p>
+    </div>
+</div>
+
+<div class="container pb-4">
+    <div class="card form-card">
+        <div class="card-header" style="background:linear-gradient(135deg,#4a148c,#7b1fa2);color:white;">
+            <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Thông Tin Phân Bổ</h5>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-3 mb-4">
+                <div class="col-6">
+                    <div class="p-3 rounded-3 text-center" style="background:linear-gradient(135deg,#e8eaf6,#f3e5f5);">
+                        <div class="small text-muted mb-1">Số Tiền Phân Bổ</div>
+                        <div class="amount-display large" style="color:#4a148c;">@Model.AllocatedAmount.ToString("N0") ₫</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="p-3 rounded-3 text-center" style="background:#e8eaf6;">
+                        <div class="small text-muted mb-1">Tỷ Lệ</div>
+                        <div style="font-size:2rem;font-weight:800;color:#1a237e;">@Model.AllocationRate%</div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-borderless">
+                <tr>
+                    <td style="width:40%;color:#607d8b;font-weight:600;">Chi Phí Chung</td>
+                    <td class="fw-bold">@(Model.OverheadCost?.CostName ?? $"ID: {Model.OverheadCostId}")</td>
+                </tr>
+                <tr>
+                    <td style="color:#607d8b;font-weight:600;">Phòng Ban</td>
+                    <td>@(Model.Department?.Name ?? $"ID: {Model.DepartmentId}")</td>
+                </tr>
+                <tr>
+                    <td style="color:#607d8b;font-weight:600;">Ngày Phân Bổ</td>
+                    <td>@Model.AllocatedDate.ToString("dd/MM/yyyy HH:mm")</td>
+                </tr>
+                <tr>
+                    <td style="color:#607d8b;font-weight:600;">Ghi Chú</td>
+                    <td>@(string.IsNullOrWhiteSpace(Model.Note) ? "—" : Model.Note)</td>
+                </tr>
+            </table>
+            <hr />
+            <div class="d-flex gap-2 justify-content-end">
+                <a asp-action="Index" class="btn btn-light px-4"><i class="fas fa-arrow-left me-1"></i>Quay Lại</a>
+            </div>
+        </div>
+    </div>
+</div>

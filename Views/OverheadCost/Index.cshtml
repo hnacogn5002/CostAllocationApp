@@ -1,0 +1,120 @@
+@model IEnumerable<OverheadCost>
+@{
+    ViewData["Title"] = "Chi Phí Chung";
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1><i class="fas fa-dollar-sign me-2"></i>Chi Phí Chung</h1>
+                <p>Quản lý các khoản chi phí chung của tổ chức</p>
+            </div>
+            <a asp-action="Create" class="btn btn-light fw-bold px-4" style="border-radius:10px;">
+                <i class="fas fa-plus me-2"></i>Thêm Chi Phí
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-4">
+    <!-- Stats -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card stat-card-blue">
+                <div class="stat-number" data-counter="@Model.Count()">0</div>
+                <div class="stat-label"><i class="fas fa-list me-1"></i>Tổng Số Chi Phí</div>
+                <div class="stat-icon">💵</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card stat-card-green">
+                <div class="stat-number">@Model.Where(m=>m.AllocationMethod=="Equal").Count()</div>
+                <div class="stat-label"><i class="fas fa-equals me-1"></i>Phân Bổ Đều</div>
+                <div class="stat-icon">⚖️</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card stat-card-orange">
+                <div class="stat-label mb-1"><i class="fas fa-coins me-1"></i>Tổng Chi Phí</div>
+                <div style="font-size:1.1rem;font-weight:700;">@Model.Sum(m=>m.TotalAmount).ToString("N0") ₫</div>
+                <div class="stat-icon">💰</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search -->
+    <div class="card mb-4">
+        <div class="card-body py-2">
+            <div class="input-group">
+                <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-muted"></i></span>
+                <input type="text" id="tableSearch" class="form-control border-start-0" placeholder="Tìm kiếm chi phí...">
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card">
+            <div class="card-body empty-state">
+                <div class="empty-icon">💵</div>
+                <h5>Chưa có chi phí nào</h5>
+                <p>Hãy thêm khoản chi phí chung đầu tiên.</p>
+                <a asp-action="Create" class="btn btn-primary-custom mt-2"><i class="fas fa-plus me-2"></i>Thêm Ngay</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="table-modern bg-white">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">#</th>
+                        <th><i class="fas fa-tag me-2"></i>Tên Chi Phí</th>
+                        <th><i class="fas fa-money-bill me-2"></i>Tổng Tiền</th>
+                        <th><i class="fas fa-calendar me-2"></i>Ngày</th>
+                        <th><i class="fas fa-cogs me-2"></i>Phương Pháp</th>
+                        <th style="width:120px;" class="text-center">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1; }
+                    @foreach (var cost in Model.OrderByDescending(m => m.CostDate))
+                    {
+                        <tr class="searchable-row">
+                            <td><span class="badge" style="background:#e8eaf6;color:#1a237e;border-radius:8px;">@(i++)</span></td>
+                            <td><div class="fw-semibold" style="color:#1a237e;">@cost.CostName</div></td>
+                            <td><span class="amount-display">@cost.TotalAmount.ToString("N0") ₫</span></td>
+                            <td><span class="text-muted small">@cost.CostDate.ToString("dd/MM/yyyy")</span></td>
+                            <td>
+                                @{
+                                    var (badgeClass, label) = cost.AllocationMethod switch {
+                                        "Equal"     => ("badge-equal",     "Phân Bổ Đều"),
+                                        "Revenue"   => ("badge-revenue",   "Theo Doanh Thu"),
+                                        "Headcount" => ("badge-headcount", "Theo Nhân Số"),
+                                        _           => ("badge-ratio",     cost.AllocationMethod)
+                                    };
+                                }
+                                <span class="badge-method @badgeClass">@label</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex gap-1 justify-content-center">
+                                    <a asp-action="Edit" asp-route-id="@cost.Id" class="btn-action btn-edit" title="Sửa"><i class="fas fa-edit"></i></a>
+                                    <a asp-action="Details" asp-route-id="@cost.Id" class="btn-action btn-view" title="Chi tiết"><i class="fas fa-eye"></i></a>
+                                    <form id="deleteForm-@cost.Id" asp-action="Delete" asp-route-id="@cost.Id" method="post" style="display:inline;">
+                                        @Html.AntiForgeryToken()
+                                    </form>
+                                    <button type="button" class="btn-action btn-delete" title="Xóa"
+                                            onclick="confirmDelete('@Html.Raw(Html.Encode(cost.CostName))', 'deleteForm-@cost.Id')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

@@ -1,0 +1,64 @@
+@model Department
+@{
+    ViewData["Title"] = "Thêm Phòng Ban";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-plus-circle me-2"></i>Thêm Phòng Ban Mới</h1>
+        <p>Điền thông tin để tạo phòng ban mới trong hệ thống</p>
+    </div>
+</div>
+
+<div class="container pb-4">
+    <nav aria-label="breadcrumb" class="breadcrumb-custom">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="fas fa-home me-1"></i>Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">Phòng Ban</a></li>
+            <li class="breadcrumb-item active">Thêm Mới</li>
+        </ol>
+    </nav>
+
+    <div class="card form-card">
+        <div class="card-header" style="background:linear-gradient(135deg,#1a237e,#3949ab);color:white;">
+            <h5 class="mb-0"><i class="fas fa-building me-2"></i>Thông Tin Phòng Ban</h5>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post" class="needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="display:none;"></div>
+
+                <div class="mb-4">
+                    <label asp-for="Name" class="form-label">
+                        <i class="fas fa-building me-1 text-primary"></i>Tên Phòng Ban <span class="text-danger">*</span>
+                    </label>
+                    <input asp-for="Name" class="form-control" placeholder="VD: Phòng Kỹ Thuật, Phòng Kế Toán..." maxlength="100" required />
+                    <span asp-validation-for="Name" class="invalid-feedback d-block"></span>
+                    <div class="invalid-feedback">Vui lòng nhập tên phòng ban.</div>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Description" class="form-label">
+                        <i class="fas fa-align-left me-1 text-primary"></i>Mô Tả
+                    </label>
+                    <textarea asp-for="Description" class="form-control" rows="3"
+                              placeholder="Mô tả chức năng, nhiệm vụ của phòng ban..."></textarea>
+                    <div class="form-text">Không bắt buộc. Tối đa 500 ký tự.</div>
+                </div>
+
+                <hr class="my-4" />
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-light px-4">
+                        <i class="fas fa-times me-1"></i>Hủy
+                    </a>
+                    <button type="submit" class="btn btn-primary-custom px-4">
+                        <i class="fas fa-save me-2"></i>Lưu Phòng Ban
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hệ Thống Quản Lý Chi Phí Chung</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CostAllocationApp.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <div class="brand-icon">💰</div>
+                    CostAlloc<span style="opacity:0.7">Manager</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                        aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMain">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home me-1"></i> Trang Chủ
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-building me-1"></i> Phòng Ban
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="Department" asp-action="Index">
+                                    <i class="fas fa-list me-2 text-primary"></i> Danh Sách Phòng Ban
+                                </a></li>
+                                <li><a class="dropdown-item" asp-controller="Department" asp-action="Create">
+                                    <i class="fas fa-plus-circle me-2 text-success"></i> Thêm Phòng Ban
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-dollar-sign me-1"></i> Chi Phí Chung
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="OverheadCost" asp-action="Index">
+                                    <i class="fas fa-list me-2 text-primary"></i> Danh Sách Chi Phí
+                                </a></li>
+                                <li><a class="dropdown-item" asp-controller="OverheadCost" asp-action="Create">
+                                    <i class="fas fa-plus-circle me-2 text-success"></i> Thêm Chi Phí
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-chart-pie me-1"></i> Phân Bổ
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="CostAllocation" asp-action="Index">
+                                    <i class="fas fa-list me-2 text-primary"></i> Danh Sách Phân Bổ
+                                </a></li>
+                                <li><a class="dropdown-item" asp-controller="CostAllocation" asp-action="Create">
+                                    <i class="fas fa-plus-circle me-2 text-success"></i> Tạo Phân Bổ Mới
+                                </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-2">
+                        <span style="color:rgba(255,255,255,0.6);font-size:0.82rem;">
+                            <i class="fas fa-calendar me-1"></i>
+                            <span id="currentDate"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid px-0">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:9999;"></div>
+
+    <!-- Delete Confirm Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background:linear-gradient(135deg,#c62828,#e53935);color:white;border-radius:16px 16px 0 0;">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Xác Nhận Xóa</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body py-4 text-center">
+                    <div style="font-size:3rem;margin-bottom:1rem;">🗑️</div>
+                    <p class="mb-1">Bạn có chắc muốn xóa:</p>
+                    <strong id="deleteItemName" class="d-block fs-5 text-danger mb-2"></strong>
+                    <p class="text-muted small mb-0">Hành động này không thể hoàn tác.</p>
+                </div>
+                <div class="modal-footer justify-content-center border-0">
+                    <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>Hủy
+                    </button>
+                    <button type="button" id="confirmDeleteBtn" class="btn btn-danger px-4">
+                        <i class="fas fa-trash me-1"></i>Xóa
+                    </button>
+                    <input type="hidden" id="deleteFormTarget" value="" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-custom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <span>💰 <strong>CostAllocManager</strong> &copy; 2026 — Nhóm 7 | CNTT K67</span>
+                </div>
+                <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                    <a asp-controller="Home" asp-action="Index" class="me-3"><i class="fas fa-home me-1"></i>Trang Chủ</a>
+                    <a asp-controller="Department" asp-action="Index" class="me-3"><i class="fas fa-building me-1"></i>Phòng Ban</a>
+                    <a asp-controller="CostAllocation" asp-action="Index"><i class="fas fa-chart-pie me-1"></i>Phân Bổ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.getElementById('currentDate').textContent =
+            new Date().toLocaleDateString('vi-VN', { weekday:'short', day:'2-digit', month:'2-digit', year:'numeric' });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

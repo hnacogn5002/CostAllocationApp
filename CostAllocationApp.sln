@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37111.16 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CostAllocationApp", "CostAllocationApp.csproj", "{67723214-C869-488F-B5FF-DE08C89170FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67723214-C869-488F-B5FF-DE08C89170FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67723214-C869-488F-B5FF-DE08C89170FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67723214-C869-488F-B5FF-DE08C89170FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67723214-C869-488F-B5FF-DE08C89170FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CEAC45C7-7026-4E1C-93EB-87F17C782432}
+	EndGlobalSection
+EndGlobal

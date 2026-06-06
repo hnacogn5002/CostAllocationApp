@@ -1,0 +1,206 @@
+@{
+    ViewData["Title"] = "Trang Chủ";
+}
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container text-center">
+        <div class="mb-3" style="font-size:3.5rem;">💰</div>
+        <h1 class="mb-3">Hệ Thống Quản Lý<br>Chi Phí Chung</h1>
+        <p class="mb-4">Tính toán và phân bổ chi phí chung tự động cho từng phòng ban hoặc dự án<br>một cách minh bạch, chính xác và hiệu quả.</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a asp-controller="CostAllocation" asp-action="Create" class="btn btn-hero-solid">
+                <i class="fas fa-plus-circle me-2"></i>Tạo Phân Bổ Mới
+            </a>
+            <a asp-controller="OverheadCost" asp-action="Index" class="btn btn-hero">
+                <i class="fas fa-list me-2"></i>Xem Chi Phí
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5">
+
+    <!-- Features -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#e3f2fd;">🏢</div>
+                <h5>Quản Lý Phòng Ban</h5>
+                <p>Thêm, sửa, xóa và theo dõi thông tin các phòng ban trong tổ chức.</p>
+                <a asp-controller="Department" asp-action="Index" class="btn btn-sm btn-outline-primary mt-2 rounded-pill">
+                    <i class="fas fa-arrow-right me-1"></i>Xem ngay
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#e8f5e9;">💵</div>
+                <h5>Chi Phí Chung</h5>
+                <p>Quản lý các khoản chi phí chung: điện, nước, thuê văn phòng, v.v.</p>
+                <a asp-controller="OverheadCost" asp-action="Index" class="btn btn-sm btn-outline-success mt-2 rounded-pill">
+                    <i class="fas fa-arrow-right me-1"></i>Xem ngay
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#fff3e0;">📊</div>
+                <h5>Phân Bổ Tự Động</h5>
+                <p>Tính toán và phân bổ chi phí theo tỷ lệ phần trăm cho từng phòng ban.</p>
+                <a asp-controller="CostAllocation" asp-action="Index" class="btn btn-sm btn-outline-warning mt-2 rounded-pill">
+                    <i class="fas fa-arrow-right me-1"></i>Xem ngay
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="feature-card">
+                <div class="feature-icon" style="background:#f3e5f5;">📋</div>
+                <h5>Báo Cáo Chi Tiết</h5>
+                <p>Xem tổng hợp chi phí đã phân bổ theo từng phòng ban hoặc dự án.</p>
+                <a asp-controller="CostAllocation" asp-action="Index" class="btn btn-sm btn-outline-secondary mt-2 rounded-pill">
+                    <i class="fas fa-arrow-right me-1"></i>Xem ngay
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="card mb-5">
+        <div class="card-header" style="background:linear-gradient(135deg,#1a237e,#3949ab);color:white;">
+            <h4 class="mb-0"><i class="fas fa-users me-2"></i>Thông Tin Nhóm — Nhóm 17 | MIS CQ61/41.1LT</h4>
+            <small style="opacity:0.8;">Học viện Tài chính | Môn: Lập Trình Web</small>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-4">
+                <div class="col-md-4 col-sm-6">
+                    <div class="team-card text-center p-4">
+                        <div class="team-avatar mx-auto mb-3" style="background:linear-gradient(135deg,#c62828,#e53935);">HNT</div>
+                        <div class="team-name">Hà Ngọc Thảo</div>
+                        <div class="team-mssv">MSSV: 2373404050049</div>
+                        <span class="team-role role-leader"><i class="fas fa-crown me-1"></i>Nhóm Trưởng</span>
+                        <div class="mt-2 small text-muted">Làm Backend gồm Controller, CRUD (thêm/sửa/xóa), xử lý tính toán phân bổ chi phí và kết nối dữ liệu</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="team-card text-center p-4">
+                        <div class="team-avatar mx-auto mb-3" style="background:linear-gradient(135deg,#1565c0,#1976d2);">HAN</div>
+                        <div class="team-name">Hoàng Ánh Ngọc</div>
+                        <div class="team-mssv">MSSV: 2373404050045</div>
+                        <span class="team-role role-frontend"><i class="fas fa-paint-brush me-1"></i>Frontend Dev</span>
+                        <div class="mt-2 small text-muted">Làm Frontend gồm giao diện website, View MVC, form nhập liệu, CSS/Bootstrap và JavaScript validation</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="team-card text-center p-4">
+                        <div class="team-avatar mx-auto mb-3" style="background:linear-gradient(135deg,#2e7d32,#388e3c);">LTBN</div>
+                        <div class="team-name">Lê Trần Bảo Ngọc</div>
+                        <div class="team-mssv">MSSV: 2373404050020</div>
+                        <span class="team-role role-backend"><i class="fas fa-code me-1"></i>Database Dev</span>
+                        <div class="mt-2 small text-muted">Setup project ASP.NET Core MVC, cài EF Core, tạo Database, Models, DbContext và Migration</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Work Breakdown -->
+    <div class="row g-4 mb-5">
+        
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header" style="background:#f8f9ff;">
+                    <h5 class="mb-0" style="color:#1a237e;"><i class="fas fa-info-circle me-2"></i>Thông Tin Dự Án</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                                <td style="width:40%;color:#607d8b;font-weight:600;"><i class="fas fa-tag me-2"></i>Tên Đề Tài</td>
+                                <td><strong>Quản Lý Chi Phí Chung</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="color:#607d8b;font-weight:600;"><i class="fas fa-users me-2"></i>Nhóm</td>
+                                <td>Nhóm 7 — CNTT K67</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#607d8b;font-weight:600;"><i class="fas fa-university me-2"></i>Trường</td>
+                                <td>ĐH Công Nghiệp Hà Nội</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#607d8b;font-weight:600;"><i class="fas fa-code me-2"></i>Công Nghệ</td>
+                                <td>ASP.NET Core 8 MVC · EF Core · SQL Server</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#607d8b;font-weight:600;"><i class="fas fa-layer-group me-2"></i>Kiến Trúc</td>
+                                <td>MVC (Model – View – Controller)</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#607d8b;font-weight:600;"><i class="fas fa-calendar me-2"></i>Năm Học</td>
+                                <td>2025 – 2026, Học Kỳ II</td>
+                            </tr>
+                            <tr>
+                                <td style="color:#607d8b;font-weight:600;"><i class="fas fa-globe me-2"></i>Tên Miền</td>
+                                <td>
+                                    <a href="https://costalloc-nhom7.azurewebsites.net" target="_blank" class="text-primary">
+                                        costalloc-nhom7.azurewebsites.net
+                                    </a>
+                                    <span class="badge bg-success ms-1 small">Free Hosting</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="mt-4 p-3 rounded-3" style="background:#e8eaf6;">
+                        <h6 class="fw-bold" style="color:#1a237e;"><i class="fas fa-bullseye me-2"></i>Mục Tiêu Hệ Thống</h6>
+                        <ul class="mb-0 small" style="color:#455a64;">
+                            <li>Tự động tính chi phí phân bổ theo tỷ lệ phần trăm</li>
+                            <li>Quản lý phòng ban và chi phí chung dễ dàng</li>
+                            <li>Giao diện trực quan, dễ sử dụng với Bootstrap 5</li>
+                            <li>Validation dữ liệu đầy đủ cả frontend lẫn backend</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card">
+        <div class="card-header" style="background:#f8f9ff;">
+            <h5 class="mb-0" style="color:#1a237e;"><i class="fas fa-bolt me-2"></i>Thao Tác Nhanh</h5>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <a asp-controller="Department" asp-action="Create" class="btn w-100 py-3 d-flex align-items-center gap-2 justify-content-center" style="background:#e3f2fd;color:#1565c0;border-radius:12px;font-weight:600;text-decoration:none;">
+                        <i class="fas fa-building fs-5"></i>
+                        <div class="text-start">
+                            <div>Thêm Phòng Ban</div>
+                            <small style="font-weight:400;opacity:0.8;">Tạo phòng ban mới</small>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a asp-controller="OverheadCost" asp-action="Create" class="btn w-100 py-3 d-flex align-items-center gap-2 justify-content-center" style="background:#e8f5e9;color:#2e7d32;border-radius:12px;font-weight:600;text-decoration:none;">
+                        <i class="fas fa-plus-circle fs-5"></i>
+                        <div class="text-start">
+                            <div>Thêm Chi Phí</div>
+                            <small style="font-weight:400;opacity:0.8;">Nhập chi phí chung mới</small>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a asp-controller="CostAllocation" asp-action="Create" class="btn w-100 py-3 d-flex align-items-center gap-2 justify-content-center" style="background:#fff3e0;color:#e65100;border-radius:12px;font-weight:600;text-decoration:none;">
+                        <i class="fas fa-chart-pie fs-5"></i>
+                        <div class="text-start">
+                            <div>Tạo Phân Bổ</div>
+                            <small style="font-weight:400;opacity:0.8;">Phân bổ chi phí cho phòng ban</small>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
