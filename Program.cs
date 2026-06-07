@@ -31,5 +31,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+// Tự động tạo database khi deploy
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<CostAllocationDbContext>();
+    db.Database.Migrate();
+}
 app.Run();
